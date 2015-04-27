@@ -1,0 +1,34 @@
+<h1>Listing items</h1>
+
+<table cellpadding="4">
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @items.sort { |a,b| b.updated_at <=> a.updated_at }.each do |item| %>
+  <tr>
+    <td><%= item.title %></td>
+    <td><%= item.content.truncate(27) %></td>
+    </tr>
+    <tr>
+    <td>
+        <span style="color: #f88;"><%= item.updated_at.strftime("%Y%m%d") %></span>
+        <span style="color: #8f8;"><%= item.updated_at.strftime("%H%M") %></span>
+    </td>
+    </tr>
+    <tr>
+    <td><%= link_to 'S', item %>
+    <%= link_to 'E', edit_item_path(item) %>
+    <%= link_to 'D', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Item', new_item_path %>
